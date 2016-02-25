@@ -17,8 +17,8 @@ x <- iris$Sepal.Length[iris$Species=="setosa"]
 x
 
 #assign population variance to "sigmsq_naught" 
-sigmasq_naught <- sqrt(1.5)
-sigmasq_naught
+sigma_naught <- sqrt(0.1)
+sigma_naught
 
 #verify length and assign to "n"
 n <- length(x)
@@ -41,7 +41,7 @@ degf <- n-1
 degf
 
 #*****Test Statistic*****
-Xsq <- (degf*s_sq)/sigmasq_naught
+Xsq <- (degf*s_sq)/sigma_naught^2
 Xsq
 
 #Critical Value of the Test:
@@ -78,3 +78,7 @@ CI3 <- (degf*s_sq/C3) #one sided
 CI3
 CI4 <- (degf*s_sq/C4) #one sided
 CI4
+
+#Now text the R function
+library(EnvStats)
+varTest(x,sigma.squared = 0.1, alternative = "two.sided", conf.level = 0.95)

@@ -84,7 +84,7 @@ cv_b
 
 #Probability Values:
 #two sided case
-p1 <- 2*pf(f, n1-1, n2-1) #if f < or equal to 1
+p1 <- 2*pf(f, n2-1, n1-1) #if f < or equal to 1
 p1
 
 p2 <- 2*(1-pf(f, n1-1, n2-1)) #if f > 1
@@ -107,17 +107,17 @@ ci_b <- (s2_sq/s1_sq)*(qf(1-alpha/2, n2-1, n1-1))
 ci_b
 
 #one sided case
-ci_l <- (s2_sq/s1_sq)*(qf(1-alpha/2, n2-1, n1-1)) #lower tail (0-ci_l)
+ci_l <- (s2_sq/s1_sq)*(1/qf(1-alpha, n1-1, n2-1)) #lower tail (0-ci_l)
 ci_l
 
-ci_u <- (s2_sq/s1_sq)*(1/qf(1-alpha/2, n1-1, n2-1)) #upper tail (ci_u-infinity)
+ci_u <- (s2_sq/s1_sq)*(qf(1-alpha, n2-1, n1-1)) #upper tail (ci_u-infinity)
 ci_u
 
 #Now test the built in R function:
-var.test(x1,x2,alternative = "two.sided",conf.level = 0.95)
+var.test(x2,x1,alternative = "two.sided",conf.level = 0.95)
 
 #one sided case lower tail 
-var.test(x1,x2,alternative = "less",conf.level = 0.95)
+var.test(x2,x1,alternative = "less",conf.level = 0.95)
 
 #one sided case upper tail
-var.test(x1,x2,alternative = "greater",conf.level = 0.95)
+var.test(x2,x1,alternative = "greater",conf.level = 0.95)

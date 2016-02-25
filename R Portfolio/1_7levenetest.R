@@ -23,6 +23,8 @@
 
 #read in data
 iris
+#this variable will be needed in r function for Levene
+iris_sv <- iris[1:100,]
 
 #assign variables
 x1 <- iris$Sepal.Length[iris$Species=="setosa"]
@@ -66,12 +68,15 @@ st2 <- var(x2t)
 st2
 
 #pooled variance of transformed observations
-stp <- sqrt(((n1-1)*st1+(n2-1)*st2)/n1+n2-2)
+stp <- sqrt((((n1-1)*st1)+(n2-1)*st2)/(n1+n2-2))
 stp
 
 #####Test Statistic#####
-t <- (x1tbar-x2tbar)/sqrt(stp/n1+stp/n2)
+t <- (x1tbar-x2tbar)/sqrt((stp^2/n1)+(stp^2/n2))
 t
+
+t_sq <- t^2
+t_sq
 
 #Sampling Distribution: if assumptions hold and Null Hypothesis is true, then t~t(n1+n2-2)
 
@@ -117,4 +122,5 @@ p4
 
 #Test the built in R function for Levene test
 library(car)
-leveneTest(x1,x2,center = mean)
+#leveneTest(data,type,center)
+leveneTest(iris_sv$Sepal.Length,iris_sv$Species,center = mean)
